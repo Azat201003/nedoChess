@@ -1,0 +1,2 @@
+# nedoChess
+dlia lohov
