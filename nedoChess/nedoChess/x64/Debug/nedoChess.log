@@ -1,0 +1,34 @@
+﻿  nedoChess.cpp
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(29,6): warning C4101: y1: неиспользованная локальная переменная
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): error C2672: "begin": не найдена соответствующая перегруженная функция
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\xutility(1612,27): message : может быть "_Ty *std::begin(_Ty (&)[_Size]) noexcept"
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : '_Ty *std::begin(_Ty (&)[_Size]) noexcept': не удалось вывести аргумент шаблон для '_Ty (&)[_Size]' из 'int *'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\xutility(1594,30): message : или       "unknown-type std::begin(const _Container &) noexcept(<expr>)"
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : Сбой при специализации функции-шаблона "unknown-type std::begin(const _Container &) noexcept(<expr>)"
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : Со следующими аргументами шаблона:
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : "_Container=int *"
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\xutility(1588,30): message : или       "unknown-type std::begin(_Container &) noexcept(<expr>)"
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : Сбой при специализации функции-шаблона "unknown-type std::begin(_Container &) noexcept(<expr>)"
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : Со следующими аргументами шаблона:
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : "_Container=int *"
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\initializer_list(55,35): message : или       "const _Elem *std::begin(std::initializer_list<_Elem>) noexcept"
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : 'const _Elem *std::begin(std::initializer_list<_Elem>) noexcept': не удалось вывести аргумент шаблон для 'std::initializer_list<_Elem>' из 'int *'
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): error C2672: "end": не найдена соответствующая перегруженная функция
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\xutility(1617,27): message : может быть "_Ty *std::end(_Ty (&)[_Size]) noexcept"
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : '_Ty *std::end(_Ty (&)[_Size]) noexcept': не удалось вывести аргумент шаблон для '_Ty (&)[_Size]' из 'int *'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\xutility(1606,30): message : или       "unknown-type std::end(const _Container &) noexcept(<expr>)"
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : Сбой при специализации функции-шаблона "unknown-type std::end(const _Container &) noexcept(<expr>)"
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : Со следующими аргументами шаблона:
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : "_Container=int *"
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\xutility(1600,30): message : или       "unknown-type std::end(_Container &) noexcept(<expr>)"
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : Сбой при специализации функции-шаблона "unknown-type std::end(_Container &) noexcept(<expr>)"
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : Со следующими аргументами шаблона:
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : "_Container=int *"
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\initializer_list(60,35): message : или       "const _Elem *std::end(std::initializer_list<_Elem>) noexcept"
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,21): message : 'const _Elem *std::end(std::initializer_list<_Elem>) noexcept': не удалось вывести аргумент шаблон для 'std::initializer_list<_Elem>' из 'int *'
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,28): error C3536: <begin>$L0: не может использоваться до инициализации
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,28): error C3536: <end>$L0: не может использоваться до инициализации
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(48,26): error C2100: недопустимое косвенное обращение
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(49): error C2109: для индекса требуется массив или указатель
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(52,23): error C2109: для индекса требуется массив или указатель
+C:\Users\степа\Desktop\Новая папка\nedoChess\nedoChess\nedoChess\nedoChess.cpp(52,40): error C2109: для индекса требуется массив или указатель

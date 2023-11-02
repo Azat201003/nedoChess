@@ -2,21 +2,7 @@
 #include <iostream>
 using namespace std;
 
-
-int main()
-{
-	setlocale(LC_ALL, "RUSSIAN");
-	int y, x;
-	while (true) {
-
-		cin >> x >> y;
-		if (x < 8 && x >= 0 && y < 8 && y >= 0) {
-			break;
-		}
-		else {
-			cout << "ti tupoi normalno pishi\n";
-		}
-	}
+int* hourse(int x, int y) {
 
 	int b[8][2];
 	int index = 0;
@@ -34,12 +20,37 @@ int main()
 			}
 		}
 	}
+	return *b;
+}
 
-	for (auto i : b) {
+int* Pe(int x, int y) {
+
+	int b[2][2];
+	int y1;
+	int index = 0;
+	b[0][0] = x;
+	b[0][1] = y + 1;
+
+	if (y == 1) {
+		b[1][0] = x;
+		b[1][1] = y + 1;
+	}
+	return *b;
+}
+
+
+
+int main()
+{
+	setlocale(LC_ALL, "RUSSIAN");
+	int x,y;
+	
+	for (auto i :hourse(x,y)) {
 		if (i[0] == -858993460) {
 			break;
 		}
-		cout << "\n\nabeme x: " << i[0] << "\nabeme y: " << i[1];
+		cout << "x: " << i[0] << "y: " << i[1];
 	}
-
+		
 }
+
