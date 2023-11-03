@@ -2,7 +2,26 @@
 #include <iostream>
 using namespace std;
 
+<<<<<<< HEAD
 int* hourse(int x, int y) {
+=======
+
+
+int main()
+{
+	setlocale(LC_ALL, "RUSSIAN");
+	int y, x;
+	while (true) {
+
+		cin >> x >> y;
+		if (x < 8 && x >= 0 && y < 8 && y >= 0) {
+			break;
+		}
+		else {
+			cout << "ti tupoi normalno pishi\n";
+		}
+	}
+>>>>>>> ea3c195 (a)
 
 	int b[8][2];
 	int index = 0;
