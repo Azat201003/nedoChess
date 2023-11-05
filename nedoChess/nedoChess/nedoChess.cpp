@@ -3,27 +3,37 @@
 #include <vector>
 
 using namespace std;
+/*
+bishop - слон; 
+rook - ладья 
+pawn - пешка 
+knight- конь 
+*/
+struct pos {
+	int x;
+	int y;
+};
 
-void _clear(int index, vector<vector<int>>* allSteps) {
+void _clear(int index, vector<pos>* allSteps) {
 	for (int i = index; i < (*allSteps).size(); i++) {
-		(*allSteps).at(i).at(0) = -1;
+		(*allSteps).at(i).x = -1;
 	}
 }
 
-vector<vector<int>> bishop(int x, int y) {
-	vector <vector <int>> allSteps(14, vector<int>(2));
+vector<pos> bishop(int x, int y) {
+	vector <pos> allSteps(14);
 	int index = 0;
 	for (int x1 = -8; x1 < 8; x1++) {
 		if (x1 != 0) {
 			if (x + x1 < 8 && x + x1 >= 0 && y + x1 < 8 && y + x1 >= 0) {
-				allSteps.at(index).at(0) = x + x1;
-				allSteps.at(index).at(1) = y + x1;
+				allSteps.at(index).x = x + x1;
+				allSteps.at(index).y = y + x1;
 				index++;
 			}
 
 			if (x + x1 < 8 && x + x1 >= 0 && y - x1 < 8 && y - x1 >= 0) {
-				allSteps.at(index).at(0) = x + x1;
-				allSteps.at(index).at(1) = y - x1;
+				allSteps.at(index).x = x + x1;
+				allSteps.at(index).y = y - x1;
 				index++;
 			}
 		}
@@ -32,20 +42,20 @@ vector<vector<int>> bishop(int x, int y) {
 
 	return allSteps;
 }
-vector<vector<int>> rook(int x, int y) {
-	vector <vector <int>> allSteps(14, vector<int>(2));
+vector<pos> rook(int x, int y) {
+	vector <pos> allSteps(14);
 	int index = 0;
 	for (int x1 = -8; x1 < 8; x1++) {
 		if (x1 != 0) {
 			if (x + x1 < 8 && x + x1 >= 0) {
-				allSteps.at(index).at(0) = x + x1;
-				allSteps.at(index).at(1) = y;
+				allSteps.at(index).x = x + x1;
+				allSteps.at(index).y = y;
 				index++;
 			}
 
 			if (y + x1 < 8 && y + x1 >= 0) {
-				allSteps.at(index).at(0) = x;
-				allSteps.at(index).at(1) = y + x1;
+				allSteps.at(index).x = x;
+				allSteps.at(index).y = y + x1;
 				index++;
 			}
 		}
@@ -55,16 +65,16 @@ vector<vector<int>> rook(int x, int y) {
 	return allSteps;
 }
 
-vector<vector<int>> knight(int x, int y) {
+vector<pos> knight(int x, int y) {
 
-	vector<vector<int>> allSteps(8, vector<int>(2));
+	vector<pos> allSteps(8);
 	int index = 0;
 	for (int x1 = -2; x1 <= 2; x1++) {
 		for (int y1 = -2; y1 <= 2; y1++) {
 			if (x1 != 0 && y1 != 0 && abs(x1) != abs(y1)) {
 				if (x + x1 >= 0 && x + x1 < 8 && y + y1 >= 0 && y + y1 < 8) {
-					allSteps.at(index).at(0) = x1 + x;
-					allSteps.at(index).at(1) = y + y1;
+					allSteps.at(index).x = x1 + x;
+					allSteps.at(index).y = y + y1;
 					index++;
 				}
 			}
@@ -77,17 +87,17 @@ vector<vector<int>> knight(int x, int y) {
 
 
 
-vector<vector<int>> pawn(int x, int y) {
+vector<pos> pawn(int x, int y) {
 
-	vector<vector<int>> allSteps(2, vector<int>(2));
-	allSteps.at(1).at(0) = -1;
+	vector<pos> allSteps(2);
+	allSteps.at(1).x = -1;
 
-	allSteps.at(0).at(0) = x;
-	allSteps.at(0).at(1) = y + 1;
+	allSteps.at(0).x = x;
+	allSteps.at(1).y = y + 1;
 
 	if (y == 1) {
-		allSteps.at(1).at(0) = x;
-		allSteps.at(1).at(1) = y + 2;
+		allSteps.at(1).x = x;
+		allSteps.at(1).y = y + 2;
 	}
 	return allSteps;
 }
@@ -100,7 +110,7 @@ enum chessPieces {
 };
 
 void printOfSteps(int x, int y, chessPieces piece) {
-	vector<vector<int>> allSteps;
+	vector<pos> allSteps;
 	switch (piece)
 	{
 	case chessPieces::Bishop:
@@ -124,27 +134,32 @@ void printOfSteps(int x, int y, chessPieces piece) {
 		break;
 	}
 	for (auto i : allSteps) {
-		if (i.at(0) == -1) {
+		if (i.x == -1) {
 			continue;
 		}
-		cout << "\n\nx: " << i.at(0) << "\ny: " << i.at(1);
+		cout << "\n\nx: " << i.x << "\ny: " << i.y;
 	}
 }
 
-int main()
-{
-	setlocale(LC_ALL, "RUSSIAN");
-	int y, x;
+void initXY(int* x, int* y) {
 	while (true) {
-
-		cin >> x >> y;
-		if (x < 8 && x >= 0 && y < 8 && y >= 0) {
+		cout << "введи х: ";
+		cin >> *x;
+		cout << "введи y: ";
+		cin >> *y;
+;		if (*x < 8 && *x >= 0 && *y < 8 && *y >= 0) {
 			break;
 		}
 		else {
 			cout << "ti tupoi normalno pishi\n";
 		}
 	}
+}
+
+int main() {	
+	setlocale(LC_ALL, "RUSSIAN");
+	int y, x;
+	initXY(&x, &y);
 	printOfSteps(x, y, chessPieces::Bishop);
 	printOfSteps(x, y, chessPieces::Knight);
 	printOfSteps(x, y, chessPieces::Pawn);
