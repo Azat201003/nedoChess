@@ -1,9 +1,2 @@
 ﻿  nedoChess.cpp
-C:\Users\user\Desktop\project\nedoChess\nedoChess\nedoChess\nedoChess.cpp(167,14): error C2062: тип "int" не требуется
-C:\Users\user\Desktop\project\nedoChess\nedoChess\nedoChess\nedoChess.cpp(167,21): error C2065: i: необъявленный идентификатор
-C:\Users\user\Desktop\project\nedoChess\nedoChess\nedoChess\nedoChess.cpp(167,35): error C2065: i: необъявленный идентификатор
-C:\Users\user\Desktop\project\nedoChess\nedoChess\nedoChess\nedoChess.cpp(167,43): error C2059: синтаксическая ошибка: )
-C:\Users\user\Desktop\project\nedoChess\nedoChess\nedoChess\nedoChess.cpp(168,12): error C2059: синтаксическая ошибка: ;
-C:\Users\user\Desktop\project\nedoChess\nedoChess\nedoChess\nedoChess.cpp(169,11): error C2065: i: необъявленный идентификатор
-C:\Users\user\Desktop\project\nedoChess\nedoChess\nedoChess\nedoChess.cpp(171,1): error C2059: синтаксическая ошибка: }
-C:\Users\user\Desktop\project\nedoChess\nedoChess\nedoChess\nedoChess.cpp(171,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
+  nedoChess.vcxproj -> C:\Users\user\Desktop\project\nedoChess\nedoChess\x64\Debug\nedoChess.exe
