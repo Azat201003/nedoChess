@@ -45,18 +45,40 @@ bool isSpace(pos newPos, vector<vector<Figure>> chessField, Color color) {
 	return false;
 }
 
+void moveTry(pos position, pos offset, vector<bool> *permissiosToPass, vector<pos> *allSteps, int index, vector<vector<Figure>> chessField, Figure figure) {
+	pos newPos;
+	newPos.x = position.x - offset.x;
+	newPos.y = position.y - offset.y;
+	if (isSpace(newPos, chessField, figure.color) && permissiosToPass->at(index)) {
+		allSteps->push_back(newPos);
+		if (chessField.at(newPos.x).at(newPos.y).color != figure.color &&
+			chessField.at(newPos.x).at(newPos.y).piece != chessPieces::none) permissiosToPass->at(index) = false;
+	}
+	else permissiosToPass->at(index) = false;
+}
+
 vector<pos> bishop(pos position, vector<vector<Figure>> chessField, Figure figure) {
 	vector <pos> allSteps;
 	pos newPos;
-	for (int offset = -7; offset <= 7; offset++) {
-		if (offset != 0) {
-			newPos.x = position.x + offset;
+	vector<bool> permissiosToPass(4, true);
+	pos offsetPos;
 
-			newPos.y = position.y + offset;
-			if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
-			newPos.y = position.y - offset;
-			if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
-		}
+	for (int offset = 1; offset <= 7; offset++) {
+		offsetPos.x = offset;
+		offsetPos.y = offset;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 0, chessField, figure);
+
+		offsetPos.x = -offset;
+		offsetPos.y = -offset;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 1, chessField, figure);
+
+		offsetPos.x = offset;
+		offsetPos.y = -offset;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 2, chessField, figure);
+
+		offsetPos.x = -offset;
+		offsetPos.y = offset;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 3, chessField, figure);
 	}
 
 	return allSteps;
@@ -64,16 +86,25 @@ vector<pos> bishop(pos position, vector<vector<Figure>> chessField, Figure figur
 vector<pos> rook(pos position, vector<vector<Figure>> chessField, Figure figure) {
 	vector <pos> allSteps;
 	pos newPos;
-	for (int offset = -7; offset <= 7; offset++) {
-		if (offset != 0) {
-			newPos.x = position.x + offset;
-			newPos.y = position.y;
-			if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
+	vector<bool> permissiosToPass(4, true);
+	pos offsetPos;
 
-			newPos.x = position.x;
-			newPos.y = position.y + offset;
-			if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
-		}
+	for (int offset = 1; offset <= 7; offset++) {
+		offsetPos.x = offset;
+		offsetPos.y = 0;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 0, chessField, figure);
+
+		offsetPos.x = -offset;
+		offsetPos.y = 0;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 1, chessField, figure);
+
+		offsetPos.x = 0;
+		offsetPos.y = offset;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 2, chessField, figure);
+
+		offsetPos.x = 0;
+		offsetPos.y = -offset;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 3, chessField, figure);
 	}
 
 	return allSteps;
@@ -103,12 +134,36 @@ vector<pos> pawn(pos position, vector<vector<Figure>> chessField, Figure figure)
 
 	newPos.x = position.x;
 	newPos.y = position.y + 1;
-	if(isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
+	if (isSpace(newPos, chessField, figure.color)) {
+		if (chessField.at(newPos.x).at(newPos.y).color != figure.color &&
+			chessField.at(newPos.x).at(newPos.y).piece != chessPieces::none) { 
+		} else {
+			allSteps.push_back(newPos);
 
-	if (position.y == 1) {
-		newPos.y = position.y + 2;
-		allSteps.push_back(newPos);
+			if (position.y == 1) {
+				newPos.y = position.y + 2;
+				if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
+			}
+		}
 	}
+	newPos.x = position.x + 1;
+	newPos.y = position.y + 1;
+	if (isSpace(newPos, chessField, figure.color)) {
+		if (chessField.at(newPos.x).at(newPos.y).color != figure.color &&
+			chessField.at(newPos.x).at(newPos.y).piece != chessPieces::none) {
+			allSteps.push_back(newPos);
+		}
+	}
+
+	newPos.x = position.x - 1;
+	newPos.y = position.y + 1;
+	if (isSpace(newPos, chessField, figure.color)) {
+		if (chessField.at(newPos.x).at(newPos.y).color != figure.color &&
+			chessField.at(newPos.x).at(newPos.y).piece != chessPieces::none) {
+			allSteps.push_back(newPos);
+		}
+	}
+
 	return allSteps;
 }
 
@@ -139,24 +194,41 @@ vector<pos> king(pos position, vector<vector<Figure>> chessField, Figure figure)
 vector<pos> queen(pos position, vector<vector<Figure>> chessField, Figure figure) {
 	vector<pos> allSteps;
 	pos newPos;
+	vector<bool> permissiosToPass(8, true);
+	pos offsetPos;
 
-	for (int offset = -7; offset <= 7; offset++) {
-		if (offset != 0) {
-			newPos.x = position.x + offset;
+	for (int offset = 1; offset <= 7; offset++) {
+		offsetPos.x = offset;
+		offsetPos.y = 0;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 0, chessField, figure);
 
-			newPos.y = position.y + offset;
-			if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
+		offsetPos.x = -offset;
+		offsetPos.y = 0;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 1, chessField, figure);
 
-			newPos.y = position.y - offset;
-			if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
+		offsetPos.x = 0;
+		offsetPos.y = offset;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 2, chessField, figure);
 
-			newPos.y = position.y;
-			if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
+		offsetPos.x = 0;
+		offsetPos.y = -offset;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 3, chessField, figure);
 
-			newPos.x = position.x;
-			newPos.y = position.y + offset;
-			if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
-		}
+		offsetPos.x = offset;
+		offsetPos.y = offset;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 4, chessField, figure);
+
+		offsetPos.x = -offset;
+		offsetPos.y = -offset;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 5, chessField, figure);
+
+		offsetPos.x = offset;
+		offsetPos.y = -offset;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 6, chessField, figure);
+
+		offsetPos.x = -offset;
+		offsetPos.y = offset;
+		moveTry(position, offsetPos, &permissiosToPass, &allSteps, 7, chessField, figure);
 	}
 
 	return allSteps;
@@ -234,8 +306,16 @@ int main() {
 	initXY(&position);
 
 	chessField.at(position.x).at(position.y) = figure;
-	chessField.at(position.x).at(position.y+1) = figure;
+	chessField.at(position.x + 1).at(position.y) = figure;
+	chessField.at(position.x + 1).at(position.y + 1) = figure;
+	chessField.at(position.x + 1).at(position.y - 1) = figure;
+	chessField.at(position.x).at(position.y - 1) = figure;
+	chessField.at(position.x).at(position.y + 1) = figure;
+	chessField.at(position.x - 1).at(position.y) = figure;
+	chessField.at(position.x - 1).at(position.y + 1) = figure;
+	chessField.at(position.x - 1).at(position.y - 1) = figure;
 
+	figure.color = Color::black;
 	figure.piece = chessPieces::Bishop;
 	printOfSteps(position, chessField, figure);
 	figure.piece = chessPieces::King;

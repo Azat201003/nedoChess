@@ -1,2 +1,5 @@
 ﻿  nedoChess.cpp
+C:\Users\Azat\Desktop\chess\nedoChess\nedoChess\nedoChess\nedoChess.cpp(62,6): warning C4101: newPos: неиспользованная локальная переменная
+C:\Users\Azat\Desktop\chess\nedoChess\nedoChess\nedoChess\nedoChess.cpp(88,6): warning C4101: newPos: неиспользованная локальная переменная
+C:\Users\Azat\Desktop\chess\nedoChess\nedoChess\nedoChess\nedoChess.cpp(196,6): warning C4101: newPos: неиспользованная локальная переменная
   nedoChess.vcxproj -> C:\Users\Azat\Desktop\chess\nedoChess\nedoChess\x64\Debug\nedoChess.exe
