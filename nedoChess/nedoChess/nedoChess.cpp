@@ -38,6 +38,36 @@ struct pos {
 	int y;
 };
 
+string intToName(pos position) {
+	string letters = "abcdefgh";
+	string result;
+
+	result = letters[position.x] + to_string(position.y + 1);
+
+	return result;
+}
+
+int letterToPosX(char x) {
+	string letters = "abcdefgh";
+	for (int i=0; i < letters.length(); i++) {
+		if (letters[i] == x) {
+			return i;
+		}
+	}
+}
+
+pos nameToInt(string position) {
+	pos result;
+
+	result.x = letterToPosX(position[0]);
+	char y[] = { position[1] };
+	result.y = (stoi(y)) - 1;
+
+	return result;
+}
+
+
+
 bool isSpace(pos newPos, vector<vector<Figure>> chessField, Color color) {
 	if (newPos.x >= 0 && newPos.x < 8 && newPos.y >= 0 && newPos.y < 8) {
 		return ((chessField.at(newPos.x).at(newPos.y).color != color) || chessField.at(newPos.x).at(newPos.y).piece == chessPieces::none);
@@ -172,20 +202,22 @@ vector<pos> king(pos position, vector<vector<Figure>> chessField, Figure figure)
 	pos newPos;
 
 	for (int offset = -1; offset <= 1; offset += 2) {
-		newPos.x = position.x + offset;
+		if (offset != 0) {
+			newPos.x = position.x + offset;
 
-		newPos.y = position.y + offset;
-		if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
+			newPos.y = position.y + offset;
+			if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
 
-		newPos.y = position.y - offset;
-		if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
+			newPos.y = position.y - offset;
+			if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
 
-		newPos.y = position.y;
-		if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
+			newPos.y = position.y;
+			if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
 
-		newPos.x = position.x;
-		newPos.y = position.y + offset;
-		if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
+			newPos.x = position.x;
+			newPos.y = position.y + offset;
+			if (isSpace(newPos, chessField, figure.color)) allSteps.push_back(newPos);
+		}
 	}
 
 	return allSteps;
@@ -239,53 +271,73 @@ void printOfSteps(pos position, vector<vector<Figure>> chessField, Figure figure
 	switch (figure.piece)
 	{
 	case chessPieces::Bishop:
-		cout << " \n\nслон:";
+		cout << " \n\nслон:\n\n";
 		allSteps = bishop(position, chessField, figure);
 		break;
 	case chessPieces::Knight:
-		cout << " \n\nконь:";
+		cout << " \n\nконь:\n\n";
 		allSteps = knight(position, chessField, figure);
 		break;
 	case chessPieces::Pawn:
-		cout << " \n\nпешка:";
+		cout << " \n\nпешка:\n\n";
 		allSteps = pawn(position, chessField, figure);
 		break;
 	case chessPieces::Rook:
-		cout << " \n\nладья:";
+		cout << " \n\nладья:\n\n";
 		allSteps = rook(position, chessField, figure);
 		break;
 	case chessPieces::King:
-		cout << " \n\nкороль:";
+		cout << " \n\nкороль:\n\n";
 		allSteps = king(position, chessField, figure);
 		break;
 	case chessPieces::Queen:
-		cout << " \n\nферзь:";
+		cout << " \n\nферзь:\n\n";
 		allSteps = queen(position, chessField, figure);
 		break;
 	default:
 		cout << "error, no this index in 'chessPieces'";
 		break;
 	}
-	for (auto i : allSteps) {
-		if (i.x == -1) {
-			continue;
+	for (int i = 7; i >= 0; i--) {
+		for (int j = 0; j < 8; j++) {
+			bool empty = true;
+			if (chessField.at(i).at(j).piece == none) {
+				for (int k = 0; k < allSteps.size(); k++) {
+					if (allSteps[k].x == j && allSteps[k].y == i) {
+						cout << "+";
+						empty = false;
+					}
+				}
+				if(empty) {
+					cout << " ";
+				}
+			} else {
+				if (chessField.at(i).at(j).color == Color::black) {
+					cout << "*";
+				} else {
+					cout << "x";
+				}
+			}
+			cout << "|";
 		}
-		cout << "\n\nx: " << i.x << "\ny: " << i.y;
+		cout << i;
+		cout << endl;
 	}
+	cout << "a b c d e f g h";
 }
 
 
 void initXY(pos *position) {
+	string result;
 	while (true) {
-		cout << "введи х: ";
-		cin >> (*position).x;
-		cout << "введи y: ";
-		cin >> (*position).y;
+		cout << "введи позицию(буквацифра): ";
+		cin >> result;
+		*position = nameToInt(result);
 ;		if ((*position).x < 8 && (*position).x >= 0 && (*position).y < 8 && (*position).y >= 0) {
 			break;
 		}
 		else {
-			cout << "ti tupoi normalno pishi\n";
+			cout << "ti tupoi normalno pishi\n" << position->x << " " << position->y << "\n";
 		}
 	}
 }
@@ -306,16 +358,12 @@ int main() {
 	initXY(&position);
 
 	chessField.at(position.x).at(position.y) = figure;
-	chessField.at(position.x + 1).at(position.y) = figure;
-	chessField.at(position.x + 1).at(position.y + 1) = figure;
-	chessField.at(position.x + 1).at(position.y - 1) = figure;
-	chessField.at(position.x).at(position.y - 1) = figure;
-	chessField.at(position.x).at(position.y + 1) = figure;
-	chessField.at(position.x - 1).at(position.y) = figure;
-	chessField.at(position.x - 1).at(position.y + 1) = figure;
-	chessField.at(position.x - 1).at(position.y - 1) = figure;
 
 	figure.color = Color::black;
+	chessField.at(position.x + 2).at(position.y + 2) = figure;
+
+	figure.color = Color::white;
+
 	figure.piece = chessPieces::Bishop;
 	printOfSteps(position, chessField, figure);
 	figure.piece = chessPieces::King;
